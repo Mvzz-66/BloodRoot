@@ -1,17 +1,16 @@
 package input;
 
-import main.BloodRootPannel;
+import main.GamePannel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyInputs implements KeyListener {
 
-    private BloodRootPannel bloodRootPannel;
+    private GamePannel gamePannel;
 
-    public KeyInputs(BloodRootPannel bloodRootPannel){
-        this.bloodRootPannel = bloodRootPannel;
+    public KeyInputs(GamePannel gamePannel){
+        this.gamePannel = gamePannel;
     }
 
     @Override
@@ -23,16 +22,16 @@ public class KeyInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_A:
-                bloodRootPannel.moveXDelta(-5);
+                gamePannel.moveXDelta(-25);
                 break;
             case KeyEvent.VK_S:
-                bloodRootPannel.moveYDelta(+5);
+                gamePannel.moveYDelta(+25);
                 break;
             case KeyEvent.VK_D:
-                bloodRootPannel.moveXDelta(+);
+                gamePannel.moveXDelta(+25);
                 break;
             case KeyEvent.VK_W:
-                bloodRootPannel.moveXDelta(-5);
+                gamePannel.moveYDelta(-25);
                 break;
         }
     }
