@@ -7,9 +7,10 @@ public class GameWindow {
 
     public GameWindow(GamePannel gamePannel){
         jFrame = new JFrame("Blood Root Window");
-        jFrame.setSize(600, 600);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePannel);
+        jFrame.setResizable(false);
+        jFrame.pack();
         jFrame.setVisible(true);
 
         /* Imposto la visuale a full screen
