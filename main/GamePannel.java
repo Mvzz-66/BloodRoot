@@ -4,43 +4,46 @@ import Inputs.KeyBoardInputs;
 import Inputs.MouseInputs;
 import entity.Player;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 
 
 public class GamePannel extends JPanel {
-    private MouseInputs mouseInputs;
+    private MouseInputs mouseInputs = new MouseInputs();
     private KeyBoardInputs keyBoardInputs = new KeyBoardInputs();
-    private double gravity = 2.1;
-    ImageIcon img = new ImageIcon();
-    Player player = new Player(this, keyBoardInputs);
+    private Player player = new Player(this, keyBoardInputs, mouseInputs);
+    private Mappa mappa = new Mappa();
+    private ImageIcon bg = new ImageIcon(getClass().getResource("/map/bg.png"));
+
+    private final double gravity = 4.1;
+
+    //quadretti
+    private static final int ROWS = 600;
+    private static final int COLS = 600;
+    private static final int CELL_SIZE = 32;
 
     public GamePannel() {
         mouseInputs = new MouseInputs();
-
 
         addKeyListener(keyBoardInputs); //input tastiera
         addMouseListener(mouseInputs); //input del mouse
         windowCorrectSize();
 
-        this.setFocusable(true);
+        setFocusable(true);
         requestFocusInWindow();
 
     }
 
     //set della finesta a dimensioni giuste
     public void windowCorrectSize(){
-        Dimension size = new Dimension(1920, 1080);
+        Dimension size = new Dimension(800, 800);
         setPreferredSize(size);
     }
 
     //gravita del gioco;
     public boolean gravita(){
-        if(player.y <= 510) {
+        if(player.y <= 470) {
             player.y += gravity;
             return true;
         }
@@ -48,17 +51,27 @@ public class GamePannel extends JPanel {
         return false;
     }
 
-    //metodi per spostamento
     public void update(){
         gravita();
-        player.update(); //funzione dalla classe del Player update.
+        player.update(); //funzione dalla classe Player update.
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
 
+        /*for (int row = 0; row <= ROWS; row++) {
+            g.drawLine(0, row * CELL_SIZE, COLS * CELL_SIZE, row * CELL_SIZE);
+        }
+        for (int col = 0; col <= COLS; col++) {
+            g.drawLine(col * CELL_SIZE, 0, col * CELL_SIZE, ROWS * CELL_SIZE);
+        }*/
+
+        g.drawImage(bg.getImage(), 0, -100, getWidth(), getHeight(), null);
+        mappa.creazioneMappa(g);
         player.draw(g);
     }
 
