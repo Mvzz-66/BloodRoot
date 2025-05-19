@@ -25,19 +25,21 @@ public class Animazioni {
     private KeyBoardInputs kb;
     private MouseInputs mI;
 
-    public Animazioni(KeyBoardInputs kb, GamePannel gamePannel){
+    public Animazioni(KeyBoardInputs kb, GamePannel gamePannel, MouseInputs mI){
         this.kb = kb;
+        this.mI = mI;
         this.gamePannel = gamePannel;
     }
 
-    //Status action controller
     public int action(){        //In base al tasto cliccato fa l'animazione
-        if(kb.rightSpeed) return runRight;
-        if(kb.leftSpeed) return runLeft;
-        if(kb.downSpeed) return fall;
-        if(kb.roll) return roll;
-        if(kb.upSpeed) return jump;
-        if(gamePannel.gravita()) return fall;
+
+        if (kb.rightSpeed) return runRight;
+        if (kb.leftSpeed) return runLeft;
+        if (kb.downSpeed) return fall;
+        if (kb.roll) return roll;
+        if (kb.upSpeed) return jump;
+        if (gamePannel.gravita()) return fall;
+        if(mI.attacco) return attack;
 
         return idle;
     }

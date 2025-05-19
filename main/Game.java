@@ -4,7 +4,7 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePannel gamePannel;
     private Thread gameThread;
-    private final int FPS_LIMIT = 120; // limitatore fps è a 60
+    private final int FPS_LIMIT = 120; // limitatore fps è a 120
 
     public Game() {
         gamePannel = new GamePannel();
@@ -33,7 +33,7 @@ public class Game implements Runnable{
             now = System.nanoTime();
 
             if(now - lastFrame >= tempoPerFrame){ // controlla se é passato abbastanza tempo per il prossimo frame
-                gamePannel.update();    //aggiorna la logia
+                gamePannel.update();    //aggiorna la logica
                 gamePannel.repaint(); //ridisegna
                 lastFrame = now;    //resetta timer
                 frame++;
