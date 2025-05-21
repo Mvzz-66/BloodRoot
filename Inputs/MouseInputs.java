@@ -2,11 +2,16 @@ package Inputs;
 
 import entity.Player;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import static java.awt.event.MouseEvent.MOUSE_CLICKED;
+
 public class MouseInputs implements MouseListener {
     private Player player;
+    public volatile boolean attacco;
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -14,13 +19,12 @@ public class MouseInputs implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //System.out.printf("x: " + e.getX());
-        //System.out.println("y: " + e.getY());
+        attacco = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        attacco = false;
     }
 
     @Override

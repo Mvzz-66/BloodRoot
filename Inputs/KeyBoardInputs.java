@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class KeyBoardInputs implements KeyListener {
 
-    public volatile boolean upSpeed, rightSpeed, leftSpeed, downSpeed, roll, jumpWRun;
+    public volatile boolean upSpeed, rightSpeed, leftSpeed, downSpeed, roll;
 
 
     @Override
