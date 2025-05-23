@@ -4,7 +4,7 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePannel gamePannel;
     private Thread gameThread;
-    private final int FPS_LIMIT = 60; // limitatore fps è a 120
+    private final int FPS_LIMIT = 120; // limitatore fps è a 120
     private final double gravita = 2.1;
 
     public Game() {

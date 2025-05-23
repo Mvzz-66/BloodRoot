@@ -3,6 +3,7 @@ package main;
 import Inputs.KeyBoardInputs;
 import Inputs.MouseInputs;
 import entity.Player;
+import entity.Skeleton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,14 +14,15 @@ public class GamePannel extends JPanel {
     private MouseInputs mouseInputs = new MouseInputs();
     private KeyBoardInputs keyBoardInputs = new KeyBoardInputs();
     private Player player = new Player(this, keyBoardInputs, mouseInputs);
+    private Skeleton s = new Skeleton(this);
     private Mappa mappa = new Mappa();
     private ImageIcon bg = new ImageIcon(getClass().getResource("/map/bg.png"));
     private double gravita = 4.1;
 
     //quadretti
-    private static final int ROWS = 600;
-    private static final int COLS = 600;
-    private static final int CELL_SIZE = 32;
+    //private static final int ROWS = 600;
+    //private static final int COLS = 600;
+    //private static final int CELL_SIZE = 32;
 
     public GamePannel() {
         mouseInputs = new MouseInputs();
@@ -42,6 +44,7 @@ public class GamePannel extends JPanel {
 
     public void update(){
         player.update(); //funzione dalla classe Player update.
+        s.update();
     }
 
 
@@ -58,9 +61,10 @@ public class GamePannel extends JPanel {
             g.drawLine(col * CELL_SIZE, 0, col * CELL_SIZE, ROWS * CELL_SIZE);
         }*/
 
-        g.drawImage(bg.getImage(), 0, -100, getWidth(), getHeight(), null);
+       g.drawImage(bg.getImage(), 0, -100, getWidth(), getHeight(), null);
         mappa.creazioneMappa(g);
         player.draw(g);
+        s.draw(g);
     }
 
 }
