@@ -1,6 +1,5 @@
 package utilz;
 
-import entity.Skeleton;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,20 +22,23 @@ public class AnimazioniSkeletri {
     private int aniIndex;
 
     public void caricaAnimazioni() {
-        idleSpirte = estraiSprite("/player/Skeleton Idle.png", 12);
-        walkRightSpirte = estraiSprite("/player/Skeleton WalkRight.png", 13);
-        walkLeftSpirte = estraiSprite("/player/Skeleton WalkLeft.png", 13);
-        attackSpirte = estraiSprite("/player/Skeleton Attack.png", 20);
-        hitSpirte = estraiSprite("/player/Skeleton Hit.png", 8);
-        deathSpirte = estraiSprite("/player/Skeleton Dead.png", 15);
+        idleSpirte = estraiSprite("/skeleton/Skeleton Idle.png", 11);
+        walkRightSpirte = estraiSprite("/skeleton/Skeleton WalkRight.png", 13);
+        walkLeftSpirte = estraiSprite("/skeleton/Skeleton WalkLeft.png", 13);
+        attackSpirte = estraiSprite("/skeleton/Skeleton Attack.png", 19);
+        hitSpirte = estraiSprite("/skeleton/Skeleton Hit.png", 8);
+        deathSpirte = estraiSprite("/skeleton/Skeleton Dead.png", 15);
     }
 
     private BufferedImage[] estraiSprite(String path, int count) {
         BufferedImage[] frames = new BufferedImage[count];
         try (InputStream is = getClass().getResourceAsStream(path)) {
             BufferedImage sheet = ImageIO.read(is);
+            int frameWidth = sheet.getWidth() / count;
+            int frameHeight = sheet.getHeight();
+
             for (int i = 0; i < count; i++) {
-                frames[i] = sheet.getSubimage(i * 120, 0, 120, 80);
+                frames[i] = sheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,12 +46,14 @@ public class AnimazioniSkeletri {
         return frames;
     }
 
-    public int updateAnimazione(int playerStatus) {
+
+
+    public int updateAnimazione(int skeletonStatus) {
         aniTick++;
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= getFrameCount(playerStatus)) {
+            if (aniIndex >= getFrameCount(skeletonStatus)) {
                 aniIndex = 0;
             }
         }

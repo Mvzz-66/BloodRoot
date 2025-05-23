@@ -1,6 +1,5 @@
 package utilz;
 
-import entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,7 +8,6 @@ import java.io.InputStream;
 
 public class AnimazioniPlayer {
 
-    private Player p;
 
     public BufferedImage[] attackSpirte;
     public BufferedImage[] runRightSpirte;
@@ -40,8 +38,11 @@ public class AnimazioniPlayer {
         BufferedImage[] frames = new BufferedImage[count];
         try (InputStream is = getClass().getResourceAsStream(path)) {
             BufferedImage sheet = ImageIO.read(is);
+            int frameWidth = sheet.getWidth() / count;
+            int frameHeight = sheet.getHeight();
+
             for (int i = 0; i < count; i++) {
-                frames[i] = sheet.getSubimage(i * 120, 0, 120, 80);
+                frames[i] = sheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
             }
         } catch (IOException e) {
             e.printStackTrace();
