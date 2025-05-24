@@ -4,7 +4,8 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePannel gamePannel;
     private Thread gameThread;
-    private final int FPS_LIMIT = 120; // limitatore fps è a 60
+    private final int FPS_SET = 120;    // limitatore fps è a 120
+    private final int UPS_SET = 120;
 
     public Game() {
         gamePannel = new GamePannel();
@@ -13,7 +14,11 @@ public class Game implements Runnable{
         gameLoop();
     }
 
-    public void gameLoop(){ //game loop serve per aggiornare continuamente il gioco, senza mai fermarsi
+    public void update(){
+        gamePannel.update();
+    }
+
+    public void gameLoop(){                     //game loop serve per aggiornare continuamente il gioco, senza mai fermarsi
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -21,29 +26,43 @@ public class Game implements Runnable{
     // gestione dei FPS nel game loop
     @Override
     public void run() {
-        double tempoPerFrame = 1000000000.0 / FPS_LIMIT; //nano secondi
-        long lastFrame = System.nanoTime();
-        long now = System.nanoTime();
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
 
-        int frame = 0;
-        long lastContrallo = System.currentTimeMillis();
+        long previousTime = System.nanoTime();
 
-        while (true){
+        int frames = 0;
+        int updates = 0;
+        long lastCheck = System.currentTimeMillis();
 
-            now = System.nanoTime();
+        double deltaU = 0;
+        double deltaF = 0;
 
-            if(now - lastFrame >= tempoPerFrame){ // controlla se é passato abbastanza tempo per il prossimo frame
-                gamePannel.update();    //aggiorna la logia
-                gamePannel.repaint(); //ridisegna
-                lastFrame = now;    //resetta timer
-                frame++;
+        while (true) {
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
             }
 
-            //Contatore FPS
-            if(System.currentTimeMillis() - lastContrallo >= 1000){
-                lastContrallo = System.currentTimeMillis();
-                // System.out.println("FPS: " + frame);
-                frame = 0;
+            if (deltaF >= 1) {
+                gamePannel.repaint( );
+                frames++;
+                deltaF--;
+            }
+
+            if (System.currentTimeMillis() - lastCheck >= 1000) {
+                lastCheck = System.currentTimeMillis();
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+
             }
         }
     }

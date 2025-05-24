@@ -7,12 +7,11 @@ import java.awt.event.KeyListener;
 
 public class KeyBoardInputs implements KeyListener {
 
-    public volatile boolean upSpeed, rightSpeed, leftSpeed, downSpeed, roll, jumpWRun;
+    public volatile boolean upSpeed, rightSpeed, leftSpeed, downSpeed, roll, attacco;
 
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -24,7 +23,7 @@ public class KeyBoardInputs implements KeyListener {
         if(code == KeyEvent.VK_A) leftSpeed = true;
         if(code == KeyEvent.VK_D) rightSpeed = true;
         if(code == KeyEvent.VK_R) roll = true;
-
+        if(code == KeyEvent.VK_F) attacco = true;
     }
 
     @Override
@@ -36,5 +35,6 @@ public class KeyBoardInputs implements KeyListener {
         if(code == KeyEvent.VK_A) leftSpeed = false;
         if(code == KeyEvent.VK_D) rightSpeed = false;
         if(code == KeyEvent.VK_R) roll = false;
+        if(code == KeyEvent.VK_F) attacco = false;
     }
 }
